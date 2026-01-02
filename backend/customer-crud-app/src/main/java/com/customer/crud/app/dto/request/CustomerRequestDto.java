@@ -71,6 +71,7 @@ public class CustomerRequestDto {
 	private String address2;
 
 	@NotNull(message = "Gender is required")
-	private Byte gender;
+	@Pattern(regexp = "MALE|FEMALE|OTHER", message = "Gender must be MALE, FEMALE or OTHER")
+	private String gender;
 
 }

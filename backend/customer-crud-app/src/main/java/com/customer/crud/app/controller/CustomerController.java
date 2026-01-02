@@ -57,13 +57,13 @@ public class CustomerController {
 	 */
 	@GetMapping
 	public ResponseEntity<PageResponseDto<CustomerResponseDto>> getCustomers(
+		@RequestParam(required = false) String search,
 		@RequestParam(defaultValue = "0") Long pageNo,
 		@RequestParam(defaultValue = "10") Long pageSize,
 		@RequestParam(defaultValue = "id") String sortBy,
 		@RequestParam(defaultValue = "asc") String sortDir
 	) {
-		PageResponseDto<CustomerResponseDto> customers = customerService.getCustomers(pageNo, pageSize, sortBy, sortDir);
-		return ResponseEntity.ok(customers);
+		return ResponseEntity.ok(customerService.getCustomers(search, pageNo, pageSize, sortBy, sortDir));
 	}
 
 	/**
@@ -85,9 +85,8 @@ public class CustomerController {
 	 * @param customerDto Updated customer data
 	 * @return Updated customer details
 	 */
-	@PutMapping(ApiPathConstant.ID)
-	public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerRequestDto dto) {
-		dto.setId(id);
+	@PutMapping
+	public ResponseEntity<CustomerResponseDto> updateCustomer(@Valid @RequestBody CustomerRequestDto dto) {
 		CustomerResponseDto updatedCustomer = customerService.updateCustomer(dto);
 		return ResponseEntity.ok(updatedCustomer);
 	}

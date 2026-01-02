@@ -5,6 +5,9 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.customer.crud.app.dto.request.CustomerRequestDto;
+import com.customer.crud.app.model.CustomerModel;
+
 /**
  * Application configuration class.
  *
@@ -24,6 +27,8 @@ public class AppConfig {
 	ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setSkipNullEnabled(true).setMatchingStrategy(MatchingStrategies.STRICT);	// ignore null DTO fields.
+		modelMapper.typeMap(CustomerRequestDto.class, CustomerModel.class)
+		.addMappings(m -> m.skip(CustomerModel::setGender));
 		return modelMapper;
 	}
 

@@ -9,17 +9,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.customer.crud.app.dto.request.CustomerRequestDto;
 import com.customer.crud.app.dto.response.CustomerResponseDto;
 import com.customer.crud.app.dto.response.PageResponseDto;
+import com.customer.crud.app.enums.Gender;
 import com.customer.crud.app.exception.DuplicateResourceException;
 import com.customer.crud.app.exception.ResourceNotFoundException;
 import com.customer.crud.app.model.CustomerModel;
 import com.customer.crud.app.repository.CustomerRepository;
 import com.customer.crud.app.service.CustomerService;
-
+import com.customer.crud.app.specification.CustomerSpecification;
 import com.customer.crud.app.constant.PaginationConstants;
 import lombok.RequiredArgsConstructor;
 
@@ -59,6 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
 			fullAddress += customer.getAddress2();
 		}
 		dto.setAddress(fullAddress);
+		dto.setGender(Gender.fromValue(customer.getGender()).name());
 		return dto;
 	}
 
@@ -66,7 +69,13 @@ public class CustomerServiceImpl implements CustomerService {
 	 * Converts request DTO to Customer entity.
 	 */
 	public CustomerModel toEntity(CustomerRequestDto dto) {
-		return modelMapper.map(dto, CustomerModel.class);
+		CustomerModel entity = modelMapper.map(dto, CustomerModel.class);
+
+		// Convert gender string → byte
+		Byte gender = Gender.fromString(dto.getGender());
+		entity.setGender(gender);
+
+		return entity;
 	}
 
 	/**
@@ -131,22 +140,26 @@ public class CustomerServiceImpl implements CustomerService {
 	 * Retrieves customers using pagination.
 	 */
 	@Override
-	public PageResponseDto<CustomerResponseDto> getCustomers(Long pageNo, Long pageSize, String sortBy, String sortDir) {
-		// Build pageable using provided pagination parameters
+	public PageResponseDto<CustomerResponseDto> getCustomers(String search, Long pageNo, Long pageSize, String sortBy, String sortDir) {
 		Pageable pageable = buildPageable(pageNo, pageSize, sortBy, sortDir);
 
-		Page<CustomerModel> result = customerRepository.findAll(pageable);
+		Specification<CustomerModel> spec = CustomerSpecification.globalSearch(search);
 
-		List<CustomerResponseDto> dtoList = result.getContent().stream().map(this::toDto).collect(Collectors.toList());
+		Page<CustomerModel> page = customerRepository.findAll(spec, pageable);
+
+		List<CustomerResponseDto> content = page.getContent()
+			.stream()
+			.map(this::toDto)
+			.toList();
 
 		return new PageResponseDto<>(
-			dtoList,
-			result.getNumber(),
-			result.getSize(),
-			result.getTotalElements(),
-			result.getTotalPages(),
-			result.hasNext(),
-			result.hasPrevious()
+			content,
+			page.getNumber(),
+			page.getSize(),
+			page.getTotalElements(),
+			page.getTotalPages(),
+			page.hasNext(),
+			page.hasPrevious()
 		);
 	}
 

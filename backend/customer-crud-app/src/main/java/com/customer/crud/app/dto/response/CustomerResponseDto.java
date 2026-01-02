@@ -26,15 +26,7 @@ public class CustomerResponseDto {
 
 	private Long id;
 
-	private String firstName;
-
-	private String lastName;
-
 	private String name;
-
-	private String address1;
-
-	private String address2;
 
 	private String address;
 
@@ -44,7 +36,7 @@ public class CustomerResponseDto {
 
 	private Byte age;
 
-	private Byte gender;
+	private String gender;
 
 	private String email;
 
