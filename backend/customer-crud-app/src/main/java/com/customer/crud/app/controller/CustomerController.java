@@ -56,8 +56,13 @@ public class CustomerController {
 	 * @return Paginated customer list with metadata
 	 */
 	@GetMapping
-	public ResponseEntity<PageResponseDto<CustomerResponseDto>> getCustomers(@RequestParam(required = false) Long pageNo, @RequestParam(required = false) Long pageSize) {
-		PageResponseDto<CustomerResponseDto> customers = customerService.getCustomers(pageNo, pageSize);
+	public ResponseEntity<PageResponseDto<CustomerResponseDto>> getCustomers(
+		@RequestParam(defaultValue = "0") Long pageNo,
+		@RequestParam(defaultValue = "10") Long pageSize,
+		@RequestParam(defaultValue = "id") String sortBy,
+		@RequestParam(defaultValue = "asc") String sortDir
+	) {
+		PageResponseDto<CustomerResponseDto> customers = customerService.getCustomers(pageNo, pageSize, sortBy, sortDir);
 		return ResponseEntity.ok(customers);
 	}
 
@@ -80,9 +85,10 @@ public class CustomerController {
 	 * @param customerDto Updated customer data
 	 * @return Updated customer details
 	 */
-	@PutMapping
-	public ResponseEntity<CustomerResponseDto> updateCustomer(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
-		CustomerResponseDto updatedCustomer = customerService.updateCustomer(customerRequestDto);
+	@PutMapping(ApiPathConstant.ID)
+	public ResponseEntity<CustomerResponseDto> updateCustomer(@PathVariable Long id, @Valid @RequestBody CustomerRequestDto dto) {
+		dto.setId(id);
+		CustomerResponseDto updatedCustomer = customerService.updateCustomer(dto);
 		return ResponseEntity.ok(updatedCustomer);
 	}
 

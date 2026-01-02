@@ -31,7 +31,7 @@ public interface CustomerService {
 	/**
 	 * Retrieves paginated customer list.
 	 */
-	PageResponseDto<CustomerResponseDto> getCustomers(Long page, Long size);
+	PageResponseDto<CustomerResponseDto> getCustomers(Long pageNo, Long pageSize, String sortBy, String sortDir);
 
 	/**
 	 * Updates an existing customer record.

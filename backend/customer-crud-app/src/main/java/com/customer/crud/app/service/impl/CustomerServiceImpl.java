@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.customer.crud.app.dto.request.CustomerRequestDto;
@@ -84,13 +85,20 @@ public class CustomerServiceImpl implements CustomerService {
 	 * Applies default values when inputs are null or invalid
 	 * and limits page size to a maximum allowed value.
 	 */
-	private Pageable buildPageable(Long pageNo, Long pageSize) {
-		int page = (pageNo == null || pageNo < 0) ? PaginationConstants.DEFAULT_PAGE_NO : Math.toIntExact(pageNo);
-		int size = (pageSize == null || pageSize <= 0) ? PaginationConstants.DEFAULT_PAGE_SIZE : Math.min(
-			Math.toIntExact(pageSize),
-			PaginationConstants.MAX_PAGE_SIZE
-			);
-		return PageRequest.of(page, size);
+	private Pageable buildPageable(Long pageNo, Long pageSize, String sortBy, String sortDir) {
+		int page = (pageNo == null || pageNo < 0)
+			? PaginationConstants.DEFAULT_PAGE_NO
+			: pageNo.intValue();
+
+		int size = (pageSize == null || pageSize <= 0)
+			? PaginationConstants.DEFAULT_PAGE_SIZE
+			: Math.min(pageSize.intValue(), PaginationConstants.MAX_PAGE_SIZE);
+
+		Sort sort = sortDir.equalsIgnoreCase("desc")
+			? Sort.by(sortBy).descending()
+			: Sort.by(sortBy).ascending();
+
+		return PageRequest.of(page, size, sort);
 	}
 
 	/**
@@ -115,19 +123,22 @@ public class CustomerServiceImpl implements CustomerService {
 	 */
 	@Override
 	public CustomerResponseDto getCustomer(Long id) {
-		Optional<CustomerModel> customer = customerRepository.findById(id);
-		return toDto(customer.get());
+		CustomerModel customer = customerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Customer not found with ID: " + id));
+		return toDto(customer);
 	}
 
 	/**
 	 * Retrieves customers using pagination.
 	 */
 	@Override
-	public PageResponseDto<CustomerResponseDto> getCustomers(Long pageNo, Long pageSize) {
+	public PageResponseDto<CustomerResponseDto> getCustomers(Long pageNo, Long pageSize, String sortBy, String sortDir) {
 		// Build pageable using provided pagination parameters
-		Pageable pageable = buildPageable(pageNo, pageSize);
+		Pageable pageable = buildPageable(pageNo, pageSize, sortBy, sortDir);
+
 		Page<CustomerModel> result = customerRepository.findAll(pageable);
+
 		List<CustomerResponseDto> dtoList = result.getContent().stream().map(this::toDto).collect(Collectors.toList());
+
 		return new PageResponseDto<>(
 			dtoList,
 			result.getNumber(),
