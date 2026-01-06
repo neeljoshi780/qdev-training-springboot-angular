@@ -20,9 +20,9 @@ public enum Gender {
 		if (input == null) return null;
 
 		return switch (input.toLowerCase()) {
-			case "male", "m" -> MALE.value;
-			case "female", "f" -> FEMALE.value;
-			case "other", "o" -> OTHER.value;
+			case "MALE", "male" -> MALE.value;
+			case "FEMALE", "female" -> FEMALE.value;
+			case "OTHER", "other" -> OTHER.value;
 			default -> null;
 		};
 	}

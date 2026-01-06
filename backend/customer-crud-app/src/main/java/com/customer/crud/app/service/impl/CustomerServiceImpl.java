@@ -1,8 +1,6 @@
 package com.customer.crud.app.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -51,16 +49,6 @@ public class CustomerServiceImpl implements CustomerService {
 		if (customer == null) return null;
 
 		CustomerResponseDto dto = modelMapper.map(customer, CustomerResponseDto.class);
-
-		// Combine first and last name
-		dto.setName(customer.getFirstName() + " " + customer.getLastName());
-
-		// Combine address lines
-		String fullAddress = customer.getAddress1();
-		if(customer.getAddress2() != null && !customer.getAddress2().isBlank()) {
-			fullAddress += customer.getAddress2();
-		}
-		dto.setAddress(fullAddress);
 		dto.setGender(Gender.fromValue(customer.getGender()).name());
 		return dto;
 	}
@@ -184,6 +172,9 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 
 		modelMapper.map(dto, existing);
+		// Convert gender string → byte
+		Byte gender = Gender.fromString(dto.getGender());
+		existing.setGender(gender);
 		return saveCustomer(existing);
 	}
 

@@ -2,8 +2,6 @@ package com.customer.crud.app.dto.response;
 
 import java.time.LocalDate;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,9 +24,13 @@ public class CustomerResponseDto {
 
 	private Long id;
 
-	private String name;
+	private String firstName;
 
-	private String address;
+	private String lastName;
+
+	private String address1;
+
+	private String address2;
 
 	private LocalDate dateOfBirth;
 

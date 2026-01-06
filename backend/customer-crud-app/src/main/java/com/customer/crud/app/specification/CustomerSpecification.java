@@ -20,7 +20,9 @@ public class CustomerSpecification {
 
 			String like = "%" + search.toLowerCase() + "%";
 
-			Byte genderValue = Gender.fromString(search);
+			Long id = parseLong(search);
+			LocalDate dob = parseDate(search);
+			Byte gender = Gender.fromString(search);
 
 			return cb.or(
 				cb.like(cb.lower(root.get("firstName")), like),
@@ -29,9 +31,9 @@ public class CustomerSpecification {
 				cb.like(cb.lower(root.get("mobile")), like),
 				cb.like(cb.lower(root.get("address1")), like),
 				cb.like(cb.lower(root.get("address2")), like),
-				genderValue == null ? cb.disjunction() : cb.equal(root.get("gender"), genderValue),
-				cb.equal(root.get("id"), parseLong(search)),
-				cb.equal(root.get("dateOfBirth"), parseDate(search))
+				id == null ? cb.disjunction() : cb.equal(root.get("id"), id),
+				dob == null ? cb.disjunction() : cb.equal(root.get("dateOfBirth"), dob),
+				gender == null ? cb.disjunction() : cb.equal(root.get("gender"), gender)
 			);
 		};
 	}

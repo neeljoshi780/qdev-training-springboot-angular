@@ -1,0 +1,154 @@
+.customer-list-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.list-header {
+  margin-bottom: 16px;
+}
+
+.customer-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.customer-table th,
+.customer-table td {
+  border: 1px solid #e5e7eb;
+  padding: 8px 10px;
+  font-size: 14px;
+  user-select: none;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+}
+
+.pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-delete {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  width: 300px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-secondary {
+  background: #9ca3af;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+}
+
+.sort-icon {
+  margin-left: 6px;
+  font-size: 11px;
+  color: #64748b;
+  cursor: pointer;
+}
+
+th:hover .sort-icon {
+  color: #2563eb;
+}
+
+.page-size-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.page-size-wrapper select {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+}
+
+.table-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.table-toolbar input {
+  padding: 6px 10px;
+  width: 220px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.list-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.list-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background-color: #2563eb;
+  color: #ffffff;
+
+  padding: 8px 16px;
+  border-radius: 6px;
+
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-actions a:hover {
+  background-color: #1e40af;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.35);
+}
+
+.list-actions a:active {
+  transform: translateY(1px);
+}

@@ -1,0 +1,276 @@
+<div class="form-page">
+  <div class="form-card">
+    <h2>{{ isEdit ? "Edit Customer" : "Add Customer" }}</h2>
+
+    <form (ngSubmit)="submit()" #customerForm="ngForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            [(ngModel)]="customer.firstName"
+            #firstName="ngModel"
+            required
+            pattern="^[A-Za-z0-9]+$"
+            maxlength="50"
+            [ngClass]="{
+              'input-error':
+                firstName.invalid &&
+                (firstName.touched || customerForm.submitted)
+            }"
+          />
+          <small
+            class="error"
+            *ngIf="firstName.errors?.['required'] &&(firstName.touched || customerForm.submitted)"
+          >
+            First name is required
+          </small>
+          <small class="error" *ngIf="firstName.errors?.['pattern']">
+            First name contains invalid characters
+          </small>
+          <small class="error" *ngIf="firstName.errors?.['maxlength']">
+            First name must not exceed 50 characters
+          </small>
+          <small class="error" *ngIf="errors['firstName']">
+            {{ errors["firstName"] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            [(ngModel)]="customer.lastName"
+            #lastName="ngModel"
+            required
+            pattern="^[A-Za-z0-9]+$"
+            maxlength="50"
+            [ngClass]="{
+              'input-error':
+                lastName.invalid && (lastName.touched || customerForm.submitted)
+            }"
+          />
+          <small
+            class="error"
+            *ngIf="lastName.errors?.['required'] &&(lastName.touched || customerForm.submitted)"
+          >
+            Last name is required
+          </small>
+          <small class="error" *ngIf="lastName.errors?.['pattern']">
+            Last name contains invalid characters
+          </small>
+          <small class="error" *ngIf="lastName.errors?.['maxlength']">
+            Last name must not exceed 50 characters
+          </small>
+          <small class="error" *ngIf="errors['lastName']">
+            {{ errors["lastName"] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="customer.email"
+            #email="ngModel"
+            required
+            email
+            [ngClass]="{
+              'input-error':
+                email.invalid && (email.touched || customerForm.submitted)
+            }"
+          />
+          <small
+            class="error"
+            *ngIf="email.errors?.['required'] &&(email.touched || customerForm.submitted)"
+          >
+            Email is required
+          </small>
+
+          <small class="error" *ngIf="email.errors?.['email']">
+            Email format is invalid
+          </small>
+          <small class="error" *ngIf="errors['email']">
+            {{ errors["email"] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Mobile</label>
+          <input
+            type="text"
+            name="mobile"
+            [(ngModel)]="customer.mobile"
+            #mobile="ngModel"
+            required
+            pattern="^[6-9][0-9]{9}$"
+            maxlength="10"
+            [ngClass]="{
+              'input-error':
+                mobile.invalid && (mobile.touched || customerForm.submitted)
+            }"
+          />
+          <small
+            class="error"
+            *ngIf="mobile.errors?.['required'] &&(mobile.touched || customerForm.submitted)"
+          >
+            Mobile number is required
+          </small>
+
+          <small class="error" *ngIf="mobile.errors?.['pattern']">
+            Mobile number must be 10 digits and start with 6–9
+          </small>
+          <small class="error" *ngIf="errors['mobile']">
+            {{ errors["mobile"] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input
+            type="date"
+            name="dateOfBirth"
+            [(ngModel)]="customer.dateOfBirth"
+            #dob="ngModel"
+            required
+            [ngClass]="{
+              'input-error':
+                dob.invalid && (dob.touched || customerForm.submitted)
+            }"
+          />
+          <small
+            class="error"
+            *ngIf="dob.errors?.['required'] &&(dob.touched || customerForm.submitted)"
+          >
+            Date of Birth is required
+          </small>
+          <small class="error" *ngIf="errors['dateOfBirth']">
+            {{ errors["dateOfBirth"] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Age</label>
+          <input
+            type="number"
+            name="age"
+            [(ngModel)]="customer.age"
+            #age="ngModel"
+            required
+            min="0"
+            max="120"
+            [ngClass]="{
+              'input-error':
+                age.invalid && (age.touched || customerForm.submitted)
+            }"
+          />
+          <small
+            class="error"
+            *ngIf="age.errors?.['required'] &&(age.touched || customerForm.submitted)"
+          >
+            Age is required
+          </small>
+
+          <small
+            class="error"
+            *ngIf="age.errors?.['min'] || age.errors?.['max']"
+          >
+            Age must be between 0 and 120
+          </small>
+          <small class="error" *ngIf="errors['age']">
+            {{ errors["age"] }}
+          </small>
+        </div>
+
+        <div class="form-group" class="radio-option">
+          <label>Gender</label>
+
+          <div class="radio-group">
+            <label class="radio-option">
+              <input
+                type="radio"
+                name="gender"
+                value="MALE"
+                [(ngModel)]="customer.gender"
+              />
+              <span>Male</span>
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="FEMALE"
+                [(ngModel)]="customer.gender"
+              />
+              <span>Female</span>
+            </label>
+
+            <label class="radio-option">
+              <input
+                type="radio"
+                name="gender"
+                value="OTHER"
+                [(ngModel)]="customer.gender"
+              />
+              <span>Other</span>
+            </label>
+          </div>
+          <small class="error" *ngIf="errors['gender']">
+            {{ errors["gender"] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Address Line 1</label>
+          <input
+            type="text"
+            name="address1"
+            [(ngModel)]="customer.address1"
+            #address1="ngModel"
+            required
+            maxlength="255"
+            [ngClass]="{
+              'input-error':
+                address1.invalid && (address1.touched || customerForm.submitted)
+            }"
+          />
+          <small
+            class="error"
+            *ngIf="address1.errors?.['required'] &&(address1.touched || customerForm.submitted)"
+          >
+            Address Line 1 is required
+          </small>
+          <small class="error" *ngIf="errors['address1']">
+            {{ errors["address1"] }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Address Line 2</label>
+          <input type="text" name="address2" [(ngModel)]="customer.address2" />
+          <small class="error" *ngIf="errors['address2']">
+            {{ errors["address2"] }}
+          </small>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="customerForm.invalid"
+        >
+          {{ isEdit ? "Update Customer" : "Save Customer" }}
+        </button>
+
+        <button type="button" class="btn-secondary" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

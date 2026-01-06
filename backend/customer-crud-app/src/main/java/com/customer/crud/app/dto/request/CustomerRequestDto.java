@@ -70,8 +70,7 @@ public class CustomerRequestDto {
 	@Size(max = 255, message = "Address Line 2 must not exceed 255 characters")
 	private String address2;
 
-	@NotNull(message = "Gender is required")
-	@Pattern(regexp = "MALE|FEMALE|OTHER", message = "Gender must be MALE, FEMALE or OTHER")
+	@NotBlank(message = "Gender is required")
 	private String gender;
 
 }

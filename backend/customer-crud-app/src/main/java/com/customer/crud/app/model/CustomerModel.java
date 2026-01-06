@@ -2,6 +2,8 @@ package com.customer.crud.app.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "customers")
+@DynamicUpdate
 public class CustomerModel {
 
 	@Id

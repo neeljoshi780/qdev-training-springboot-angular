@@ -1,13 +1,8 @@
 package com.customer.crud.app.service;
 
-import java.util.List;
-
-import org.springframework.validation.BindingResult;
-
 import com.customer.crud.app.dto.request.CustomerRequestDto;
 import com.customer.crud.app.dto.response.CustomerResponseDto;
 import com.customer.crud.app.dto.response.PageResponseDto;
-import com.customer.crud.app.model.CustomerModel;
 
 /**
  * Customer service contract.

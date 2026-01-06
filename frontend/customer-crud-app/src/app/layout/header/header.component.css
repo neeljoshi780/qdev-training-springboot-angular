@@ -1,0 +1,47 @@
+.app-header {
+  background-color: #0f172a;
+  color: #ffffff;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.nav-links a {
+  color: #e5e7eb;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+.login-btn {
+  padding: 6px 14px;
+  border: 1px solid #38bdf8;
+  border-radius: 4px;
+}
+
+.login-btn:hover {
+  background-color: #38bdf8;
+  color: #0f172a;
+}
