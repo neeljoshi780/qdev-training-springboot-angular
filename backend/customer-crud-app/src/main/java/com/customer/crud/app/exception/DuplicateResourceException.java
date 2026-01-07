@@ -14,8 +14,6 @@ package com.customer.crud.app.exception;
  */
 public class DuplicateResourceException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Creates a new DuplicateResourceException with a custom message.
 	 *

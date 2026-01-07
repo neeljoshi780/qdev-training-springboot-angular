@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
  */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping(ApiPathConstant.CUSTOMER)
+@RequestMapping(ApiPathConstant.CUSTOMER_BASE)
 @RequiredArgsConstructor
 public class CustomerController {
 

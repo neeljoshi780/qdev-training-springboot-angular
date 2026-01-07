@@ -75,6 +75,17 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
+	 * Handles authentication failure errors.
+	 *
+	 * Used for login failures such as
+	 * invalid username or password.
+	 */
+	@ExceptionHandler(AuthenticationFailedException.class)
+	public ResponseEntity<ErrorResponse> handleAuthenticationFailed(AuthenticationFailedException ex, HttpServletRequest request) {
+		return buildErrorResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED,request);
+	}
+
+	/**
 	 * Common method to build error response.
 	 */
 	private ResponseEntity<ErrorResponse> buildErrorResponse(String message, HttpStatus status, HttpServletRequest request) {

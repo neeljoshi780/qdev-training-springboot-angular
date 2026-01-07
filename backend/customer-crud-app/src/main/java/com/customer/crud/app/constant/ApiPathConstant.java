@@ -16,16 +16,33 @@ public final class ApiPathConstant {
 
 	/**
 	 * Common path variable for resource identifiers.
-	 * Reused across multiple controllers.
 	 * Example: /{id}
 	 */
 	public static final String ID = "/{id}";
 
 	/**
+	 * Base path for authentication-related APIs.
+	 * Example: /api/auth
+	 */
+	public static final String AUTH_BASE = API_BASE + "/auth";
+
+	/**
+	 * User registration endpoint.
+	 * Example: /api/auth/signup
+	 */
+	public static final String SIGN_UP = "/signup";
+
+	/**
+	 * User login endpoint.
+	 * Example: /api/auth/signin
+	 */
+	public static final String SIGN_IN = "/signin";
+
+	/**
 	 * Base path for Customer-related APIs.
 	 * Example: /api/customer
 	 */
-	public static final String CUSTOMER = API_BASE + "/customer";
+	public static final String CUSTOMER_BASE = API_BASE + "/customer";
 
 	// Prevent instantiation
 	private ApiPathConstant() {

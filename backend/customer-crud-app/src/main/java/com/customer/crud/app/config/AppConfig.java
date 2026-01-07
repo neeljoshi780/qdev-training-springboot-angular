@@ -18,10 +18,10 @@ import com.customer.crud.app.model.CustomerModel;
 public class AppConfig {
 
 	/**
-	 * Configures and exposes a {@link org.modelmapper.ModelMapper} bean
+	 * Configures and exposes a ModelMapper bean
 	 * with strict property matching and null value skipping enabled.
 	 *
-	 * @return configured {@link org.modelmapper.ModelMapper} instance
+	 * @return configured ModelMapper instance
 	 */
 	@Bean
 	ModelMapper modelMapper() {

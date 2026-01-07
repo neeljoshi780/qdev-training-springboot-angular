@@ -11,8 +11,6 @@ package com.customer.crud.app.exception;
  */
 public class BadRequestException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Creates a new BadRequestException with a custom message.
 	 *
