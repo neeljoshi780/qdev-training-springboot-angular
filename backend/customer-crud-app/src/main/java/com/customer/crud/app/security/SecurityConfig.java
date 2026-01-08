@@ -2,7 +2,9 @@ package com.customer.crud.app.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -61,6 +63,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
 		http
+			.cors(Customizer.withDefaults())
 			.csrf(csrf -> csrf.disable())
 			.sessionManagement(
 				session -> session
@@ -71,6 +74,7 @@ public class SecurityConfig {
 			)
 			.authorizeHttpRequests(
 				auth -> auth
+					.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 					.requestMatchers(ApiPathConstant.AUTH_BASE+"/**").permitAll()
 					.requestMatchers(ApiPathConstant.CUSTOMER_BASE+"/**").hasRole("ADMIN")
 					.anyRequest().authenticated()

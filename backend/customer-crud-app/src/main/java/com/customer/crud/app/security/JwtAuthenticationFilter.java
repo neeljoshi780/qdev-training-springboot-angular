@@ -2,6 +2,7 @@ package com.customer.crud.app.security;
 
 import java.io.IOException;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -77,6 +78,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 		// Continue filter chain
 		filterChain.doFilter(request, response);
+	}
+
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) {
+		return HttpMethod.OPTIONS.matches(request.getMethod());
 	}
 
 }
